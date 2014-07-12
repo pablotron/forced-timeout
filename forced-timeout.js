@@ -22,6 +22,9 @@
  *
  *     <script type='text/javascript' src='forced-timeout.js'></script>
  *
+ * See `test.html` for a complete example, or read on for additional
+ * instructions.
+ *
  * The session expiration time and message can be configured using
  * optional `<meta>` tags, like this:
  *
@@ -62,8 +65,8 @@
  *
  * Configuration Options
  * ---------------------
- * A full list of configuration options that can be specified via <meta>
- * tags:
+ * All configuration is optional.  That said, below is a full list of
+ * configuration options that can be specified via `<meta>` tags:
  *
  *  * x-forced-timeout-time: Time (in minutes) before session
  *    expiration.  Defaults to "30" if unspecified.  Example:
