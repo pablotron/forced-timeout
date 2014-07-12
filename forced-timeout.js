@@ -39,8 +39,8 @@
  *     <meta id='x-forced-timeout-debug' value='1'/>
  *
  * If you need to do some cleanup or automatically redirect to an
- * authentication page, you can listen for a forcedtimeout event on the
- * document element:
+ * authentication page, you can listen for a `forcedtimeout` event on
+ * the document element:
  *
  *     // sample function
  *     function bye() {
@@ -52,12 +52,11 @@
  *       // modern browsers, ie9+
  *       document.addEventListener('forcedtimeout', bye, false);
  *     } else {
- *       // ie8 and earlier (ie7 and earlier, in particular, do not
- *       // support "fake" events)
+ *       // older browser fallback
  *       document.onforcedtimeout = bye;
  *     }
  *
- * By design, the forcedtimeout event triggers _after_ the session
+ * By design, the `forcedtimeout` event triggers _after_ the session
  * timeout has occurred, so stopping the event will not prevent the
  * timeout.
  *
@@ -69,24 +68,24 @@
  *  * x-forced-timeout-time: Time (in minutes) before session
  *    expiration.  Defaults to "30" if unspecified.  Example:
  *
- *      <meta id='x-forced-timeout-time' value='10'/>
+ *      `<meta id='x-forced-timeout-time' value='10'/>`
  *
  *  * x-forced-timeout-text: Text to replace page contents with on
  *    session expiration.  Defaults to "Session Expired." if
  *    unspecified.  Example:
  *
- *      <meta id='x-forced-timeout-text' value='Later, Skater!'/>
+ *      `<meta id='x-forced-timeout-text' value='Later, Skater!'/>`
  *
  *  * x-forced-timeout-events: Space-delimited list of events to watch
  *    for.  Defaults to "mousemove keyup" if unspecified.
  *
- *      <meta id='x-forced-timeout-events' value='mousemove scroll'/>
+ *      `<meta id='x-forced-timeout-events' value='mousemove scroll'/>`
  *
  *  * x-forced-timeout-debug:  Set to '1' to force expiration time to 10
  *    seconds and polling interval to 5 seconds.  Useful for debugging.
  *    Defaults to "" if unspecified.  Example:
  *
- *      <meta id='x-forced-timeout-debug' value='1'/>
+ *      `<meta id='x-forced-timeout-debug' value='1'/>`
  *
  * License
  * -------
