@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- set session timeout to 5 minutes -->
+    <!-- set session timeout to 1 minute -->
     <meta id='x-forced-timeout-time' value='1'/>
     <meta id='x-forced-timeout-debug' value='1'/>
 
-    <!-- additional forced timeout examples -->
+    <!-- additional config examples -->
     <!-- 
       <meta id='x-forced-timeout-text' value='Later, Skater!'/>
       <meta id='x-forced-timeout-events' value='mousemove keyup'/>
@@ -16,19 +16,21 @@
     <script type='text/javascript' src='forced-timeout.js'></script>
 
     <!-- example of catching a forced-timeout event -->
-    <script type='text/javascript'>
-      function bye() {
-        alert('bye!');
-      }
+    <!-- 
+      <script type='text/javascript'>
+        function bye() {
+          alert('bye!');
+        }
 
-      if (document.addEventListener) {
-        // modern browsers, ie9+
-        document.addEventListener('forcedtimeout', bye, false);
-      } else {
-        // ie8 and earlier
-        document.onforcedtimeout = bye;
-      }
-    </script>
+        if (document.addEventListener) {
+          // modern browsers, ie9+
+          document.addEventListener('forcedtimeout', bye, false);
+        } else {
+          // ie8 and earlier
+          document.onforcedtimeout = bye;
+        }
+      </script>
+    -->
 
     <title>
       forced-timeout.js Test Page

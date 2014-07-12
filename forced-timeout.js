@@ -54,6 +54,9 @@
 (function(D, P) {
   "use strict";
 
+  // version string
+  var VERSION = '0.1.0';
+
   /**
    * DEFAULTS - default settings
    * 
@@ -249,7 +252,7 @@
     fire('forcedtimeout');
   }
 
-  // INIT
+  // init 
   ready(function() {
     // prevent double-init
     if (init)
