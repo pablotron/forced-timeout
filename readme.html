@@ -1,0 +1,144 @@
+<h1>forced-timeout.js</h1>
+
+<h2>Links</h2>
+
+<ul>
+<li>Contact: Paul Duncan (<a href="&#109;a&#x69;&#x6C;&#x74;&#x6F;:&#x70;&#x61;&#x62;&#x73;&#64;&#x70;&#97;bl&#x6F;&#116;&#x72;&#111;&#110;&#46;o&#x72;&#103;">&#x70;&#x61;&#x62;&#x73;&#64;&#x70;&#97;bl&#x6F;&#116;&#x72;&#111;&#110;&#46;o&#x72;&#103;</a>)</li>
+<li>Home Page: <a href="http://pablotron.org/forced-timeout/">http://pablotron.org/forced-timeout/</a></li>
+<li>Mercurial Repository: <a href="http://hg.pablotron.org/forced-timeout/">http://hg.pablotron.org/forced-timeout/</a></li>
+</ul>
+
+<h2>Overview</h2>
+
+<p>Tiny JavaScript library to force client-side session timeout of a web
+page.</p>
+
+<p>After a set amount of inactivity the web page is cleared and the user
+must reload in order to continue working.  Useful for complying with
+baroque security requirements.</p>
+
+<p>Why?  This script is:</p>
+
+<ul>
+<li><p>less than 2k minified (see <code>forced-timeout.min.js</code>),</p></li>
+<li><p>has no external dependencies (no jQuery/YUI/Sensha),</p></li>
+<li><p>works in browsers as old as IE5, and</p></li>
+<li><p>MIT licensed (use for whatever, I don't care)</p></li>
+</ul>
+
+<h2>Usage</h2>
+
+<p>To use forced-timeout.js, simply add the following to your page:</p>
+
+<pre><code>&lt;script type='text/javascript' src='forced-timeout.min.js'&gt;&lt;/script&gt;
+</code></pre>
+
+<p>See <code>test.html</code> for a complete example, or read on for additional
+instructions.</p>
+
+<p>The session expiration time and message can be configured using
+optional <code>&lt;meta&gt;</code> tags, like this:</p>
+
+<pre><code>&lt;!-- set timeout to 5 minutes and message to "Later, Skater!" --&gt;
+&lt;meta id='x-forced-timeout-time' value='5'/&gt;
+&lt;meta id='x-forced-timeout-text' value='Later, Skater!'/&gt;
+
+&lt;!-- load forced-timeout.js --&gt;
+&lt;script type='text/javascript' src='forced-timeout.js'&gt;&lt;/script&gt;
+</code></pre>
+
+<p>You can also use the x-forced-timeout-debug meta tag to set the
+expiration time to 10 seconds (for debugging):</p>
+
+<pre><code>&lt;!-- set session timeout to 10 seconds --&gt;
+&lt;meta id='x-forced-timeout-debug' value='1'/&gt;
+</code></pre>
+
+<p>If you need to do some cleanup or automatically redirect to an
+authentication page, you can listen for a <code>forcedtimeout</code> event on
+the document element:</p>
+
+<pre><code>// sample function
+function bye() {
+  alert('bye!');
+}
+
+// do something after forcedtimeout event
+if (document.addEventListener) {
+  // modern browsers, ie9+
+  document.addEventListener('forcedtimeout', bye, false);
+} else {
+  // older browser fallback
+  document.onforcedtimeout = bye;
+}
+</code></pre>
+
+<p>By design, the <code>forcedtimeout</code> event triggers <em>after</em> the session
+timeout has occurred, so stopping the event will not prevent the
+timeout.</p>
+
+<h2>Configuration Options</h2>
+
+<p>All configuration is optional.  That said, below is a full list of
+configuration options that can be specified via <code>&lt;meta&gt;</code> tags:</p>
+
+<ul>
+<li><p>x-forced-timeout-time: Time (in minutes) before session
+expiration.  Defaults to "30" if unspecified.  Example:</p>
+
+<p><code>&lt;meta id='x-forced-timeout-time' value='10'/&gt;</code></p></li>
+<li><p>x-forced-timeout-text: Text to replace page contents with on
+session expiration.  Defaults to "Session Expired." if
+unspecified.  Example:</p>
+
+<p><code>&lt;meta id='x-forced-timeout-text' value='Later, Skater!'/&gt;</code></p></li>
+<li><p>x-forced-timeout-events: Space-delimited list of events to watch
+for.  Defaults to "mousemove keyup" if unspecified.</p>
+
+<p><code>&lt;meta id='x-forced-timeout-events' value='mousemove scroll'/&gt;</code></p></li>
+<li><p>x-forced-timeout-debug:  Set to '1' to force expiration time to 10
+seconds and polling interval to 5 seconds.  Useful for debugging.
+Defaults to "" if unspecified.  Example:</p>
+
+<p><code>&lt;meta id='x-forced-timeout-debug' value='1'/&gt;</code></p></li>
+</ul>
+
+<h2>Notes</h2>
+
+<ul>
+<li>Follow the instructions at the bottom of <code>forced-timeout.js</code>, to
+generate the minified version and documentation.</li>
+</ul>
+
+<h2>License</h2>
+
+<p>Copyright (c) 2014 Paul Duncan <a href="&#x6D;&#97;&#105;&#108;&#x74;&#111;:&#x70;&#x61;&#x62;&#x73;&#64;&#112;&#x61;&#98;&#108;&#111;&#116;&#x72;&#111;&#110;&#x2E;&#111;&#114;&#x67;">&#x70;&#x61;&#x62;&#x73;&#64;&#112;&#x61;&#98;&#108;&#111;&#116;&#x72;&#111;&#110;&#x2E;&#111;&#114;&#x67;</a></p>
+
+<p>All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:</p>
+
+<ul>
+<li><p>Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.</p></li>
+<li><p>Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.</p></li>
+<li><p>The names of contributors may not be used to endorse or promote
+products derived from this software without specific prior written
+permission.</p></li>
+</ul>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
