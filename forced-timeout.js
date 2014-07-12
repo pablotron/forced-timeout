@@ -12,7 +12,7 @@
  *
  * This script is:
  *
- *   * less than 2k minified (forced-timeout.min.js),
+ *   * less than 2k minified (see `forced-timeout.min.js`),
  *
  *   * has no external dependencies, and
  *
@@ -175,7 +175,7 @@
       // we could chain onload here for really pathologically old
       // and/or broken browsers, but instead just throw an error
 
-      throw 'on(): unsupported browser';
+      throw 'on() failed';
     }
   }
 
@@ -260,7 +260,7 @@
         D.fireEvent('on' + type);
       } else {
         // pathological and/or old browser
-        throw 'fire(): unsupported browser';
+        throw 'fire() failed';
       }
     } else if (D['on' + type]) {
       // browser does not support fake events, but it does have
@@ -289,7 +289,7 @@
       // pathologically old and/or broken browsers, but instead just
       // throw an error
 
-      throw 'ready(): unsupported browser';
+      throw 'ready() failed';
     }
   }
 
@@ -360,13 +360,14 @@
     }, poll);
   });
 })(document, 'x-forced-timeout-');
+
 /*
 You automagically generate the following files:
 
-  * forced-timeout.min.js (minified forced-timeout.js), 
+  * forced-timeout.min.js (minified forced-timeout.js),
   * readme.txt (Markdown-formatted documentation), and
   * readme.html (HTML-formatted documentation)
-  
+
 by using this command:
 
   grep ^build: forced-timeout.js | sed 's/^build://' | ruby
