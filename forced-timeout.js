@@ -1,26 +1,37 @@
 /**
  * forced-timeout.js
  * =================
- * by Paul Duncan <pabs@pablotron.org>
  *
- * Usage
+ * Links
  * -----
- * Enforce client-side session timeout of a web page.
+ * * Contact: Paul Duncan (<pabs@pablotron.org>)
+ * * Home Page: <http://pablotron.org/forced-timeout/>
+ * * Mercurial Repository: <http://hg.pablotron.org/forced-timeout/>
  *
- * After a set amount of inactivity the page is cleared and the user
- * must reload the page to continue working.
+ * Overview
+ * --------
+ * Tiny JavaScript library to force client-side session timeout of a web
+ * page.
  *
- * This script is:
+ * After a set amount of inactivity the web page is cleared and the user
+ * must reload in order to continue working.  Useful for complying with
+ * baroque security requirements.
+ *
+ * Why?  This script is:
  *
  *   * less than 2k minified (see `forced-timeout.min.js`),
  *
- *   * has no external dependencies, and
+ *   * has no external dependencies (no jQuery/YUI/Sensha),
  *
- *   * works in browsers as old as IE5.
+ *   * works in browsers as old as IE5, and
  *
+ *   * MIT licensed (use for whatever, I don't care)
+ *
+ * Usage
+ * -----
  * To use forced-timeout.js, simply add the following to your page:
  *
- *     <script type='text/javascript' src='forced-timeout.js'></script>
+ *     <script type='text/javascript' src='forced-timeout.min.js'></script>
  *
  * See `test.html` for a complete example, or read on for additional
  * instructions.
@@ -90,9 +101,14 @@
  *
  *      `<meta id='x-forced-timeout-debug' value='1'/>`
  *
+ * Notes
+ * -----
+ * * Follow the instructions at the bottom of `forced-timeout.js`, to
+ *   generate the minified version and documentation.
+ *
  * License
  * -------
- * Copyright (C) 2014 Paul Duncan <pabs@pablotron.org>
+ * Copyright (c) 2014 Paul Duncan <pabs@pablotron.org>
  *
  * All rights reserved.
  *
@@ -111,17 +127,17 @@
  *     products derived from this software without specific prior written
  *     permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
- * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
- * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
- * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 (function(D, P) {
@@ -313,7 +329,7 @@
   }
 
   /**
-   * expire() - replace page with session expired text
+   * expire() - replace full page with given text
    */
   function expire(text) {
     // clear interval
@@ -379,13 +395,14 @@ by using this command:
 
 build: # generate readme.txt
 build: File.write('readme.txt', File.read('forced-timeout.js').match(%r{
-build:   # extract leading comment
+build:   # match first opening comment
 build:   ^/\*\*(.*?)\* /
 build:
 build:   # match text
 build:   (.*?)
 build:
-build:   # match closing comment
+build:   # match first closing comment
+build:   # (note: don't change " /" to "/" or else)
 build:   \* /
 build: }mx)[1].split(/\n/).map { |line|
 build:   # strip leading asterisks
