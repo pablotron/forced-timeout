@@ -1,22 +1,29 @@
 /**
- * forced-timeout.js - Enforce client-side session timeout.
- * Paul Duncan <pabs@pablotron.org>
+ * forced-timeout.js 0.1.0
+ * =======================
+ * by Paul Duncan <pabs@pablotron.org>
  *
  * Usage
- * =====
+ * -----
+ * Enforce client-side session timeout of a web page.  After a set
+ * amount of inactivity the page is cleared and the user must reload the
+ * page to continue working.
  *
- * Enforce client-side session timeout of a web page.
+ * This script is:
  *
- * This script has no external dependencies and it should work in
- * browsers as old as IE7; in theory it should work as far back as IE5,
- * although I have not confirmed this.
+ *   * less than 2k minified (see forced-timeout.min.js),
  *
- * To use, simply include forced-timeout.js your page:
+ *   * has no external dependencies, and
+ *
+ *   * should work in browsers as old as IE7; in theory it should work
+ *     as far back as IE5, although I have not confirmed this.
+ *
+ * To use forced-timeout.js, simply add the following to your page:
  *
  *     <script type='text/javascript' src='forced-timeout.js'></script>
  *
  * The session expiration time and message can be configured using
- * optional <meta> tags, like this:
+ * optional `<meta>` tags, like this:
  *
  *     <!-- set timeout to 5 minutes and message to "Later, Skater!" -->
  *     <meta id='x-forced-timeout-time' value='5'/>
@@ -54,8 +61,35 @@
  * timeout has occurred, so stopping the event will not prevent the
  * timeout.
  *
+ * Configuration Options
+ * ---------------------
+ * A full list of configuration options that can be specified via <meta>
+ * tags:
+ *
+ *  * x-forced-timeout-time: Time (in minutes) before session
+ *    expiration.  Defaults to "30" if unspecified.  Example:
+ *
+ *      <meta id='x-forced-timeout-time' value='10'/>
+ *
+ *  * x-forced-timeout-text: Text to replace page contents with on
+ *    session expiration.  Defaults to "Session Expired." if
+ *    unspecified.  Example:
+ *
+ *      <meta id='x-forced-timeout-text' value='Later, Skater!'/>
+ *
+ *  * x-forced-timeout-events: Space-delimited list of events to watch
+ *    for.  Defaults to "mousemove keyup" if unspecified.
+ *
+ *      <meta id='x-forced-timeout-events' value='mousemove scroll'/>
+ *
+ *  * x-forced-timeout-debug:  Set to '1' to force expiration time to 10
+ *    seconds and polling interval to 5 seconds.  Useful for debugging.
+ *    Defaults to "" if unspecified.  Example:
+ *
+ *      <meta id='x-forced-timeout-debug' value='1'/>
+ *
  * License
- * =======
+ * -------
  * Copyright (C) 2014 Paul Duncan <pabs@pablotron.org>
  *
  * All rights reserved.
@@ -161,9 +195,10 @@
       r = D.createEventObject();
     } else {
       // pathological and/or old browser
-      throw 'make_event(): unsupported browser';
+      r = null;
     }
 
+    // return event
     return r;
   }
 
@@ -326,3 +361,21 @@
     }, poll);
   });
 })(document, 'x-forced-timeout-');
+/*
+Use this command to build readme.txt and readme.html (requires ruby and
+markdown):
+
+  grep ^build-docs: forced-timeout.js | sed 's/^build-docs: //' | ruby
+
+build-docs: # generate readme.txt
+build-docs: File.write('readme.txt', File.read('forced-timeout.js').match(%r{
+build-docs:   # extract leading comment
+build-docs:   ^/\*\*(.*?)\* /
+build-docs: }mx)[1].split(/\n/).map { |line|
+build-docs:   # strip leading asterisks
+build-docs:   line.gsub(/^ \* ?/, '')
+build-docs: }.join("\n").strip)
+build-docs:
+build-docs: # generate readme.html
+build-docs: `markdown < readme.txt > readme.html`
+*/
