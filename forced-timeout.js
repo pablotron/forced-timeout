@@ -1,5 +1,6 @@
 /**
  * forced-timeout.js - Enforce client-side session timeout
+ * (c) 2014 Paul Duncan <pabs@pablotron.org>
  *
  * Enforce client-side session timeout of a web page.  
  *
@@ -14,10 +15,8 @@
  * The session expiration time and message can be configured using
  * optional <meta> tags, like this:
  *
- *     <!-- set session timeout to 5 minutes -->
+ *     <!-- set timeout to 5 minutes and message to "Later, Skater!" -->
  *     <meta id='x-forced-timeout-time' value='5'/>
- *
- *     <!-- set timeout message to "Later, Skater!" -->
  *     <meta id='x-forced-timeout-text' value='Later, Skater!'/>
  *
  *     <!-- load forced-timeout.js -->
@@ -43,12 +42,14 @@
  *       // modern browsers, ie9+
  *       document.addEventListener('forcedtimeout', bye, false);
  *     } else {
- *       // ie8 and earlier
+ *       // ie8 and earlier (ie7 and earlier, in particular, do not
+ *       // support "fake" events)
  *       document.onforcedtimeout = bye;
  *     }
  * 
- * Note that (by design), the forcedtimeout occurs _after_ the timeout
- * has occurred, so stopping the event will not prevent the timeout.
+ * By design, the forcedtimeout event triggers _after_ the session
+ * timeout has occurred, so stopping the event will not prevent the
+ * timeout.
  * 
  */ 
 (function(D, P) {
