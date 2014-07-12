@@ -1,22 +1,22 @@
 /**
- * forced-timeout.js 0.1.0
- * =======================
+ * forced-timeout.js
+ * =================
  * by Paul Duncan <pabs@pablotron.org>
  *
  * Usage
  * -----
- * Enforce client-side session timeout of a web page.  After a set
- * amount of inactivity the page is cleared and the user must reload the
- * page to continue working.
+ * Enforce client-side session timeout of a web page.
+ *
+ * After a set amount of inactivity the page is cleared and the user
+ * must reload the page to continue working.
  *
  * This script is:
  *
- *   * less than 2k minified (see forced-timeout.min.js),
+ *   * less than 2k minified (forced-timeout.min.js),
  *
  *   * has no external dependencies, and
  *
- *   * should work in browsers as old as IE7; in theory it should work
- *     as far back as IE5, although I have not confirmed this.
+ *   * works in browsers as old as IE5.
  *
  * To use forced-timeout.js, simply add the following to your page:
  *
@@ -362,20 +362,36 @@
   });
 })(document, 'x-forced-timeout-');
 /*
-Use this command to build readme.txt and readme.html (requires ruby and
-markdown):
+You automagically generate the following files:
 
-  grep ^build-docs: forced-timeout.js | sed 's/^build-docs: //' | ruby
+  * forced-timeout.min.js (minified forced-timeout.js), 
+  * readme.txt (Markdown-formatted documentation), and
+  * readme.html (HTML-formatted documentation)
+  
+by using this command:
 
-build-docs: # generate readme.txt
-build-docs: File.write('readme.txt', File.read('forced-timeout.js').match(%r{
-build-docs:   # extract leading comment
-build-docs:   ^/\*\*(.*?)\* /
-build-docs: }mx)[1].split(/\n/).map { |line|
-build-docs:   # strip leading asterisks
-build-docs:   line.gsub(/^ \* ?/, '')
-build-docs: }.join("\n").strip)
-build-docs:
-build-docs: # generate readme.html
-build-docs: `markdown < readme.txt > readme.html`
+  grep ^build: forced-timeout.js | sed 's/^build://' | ruby
+
+(Requires jsmin, ruby, and markdown).
+
+build: # generate readme.txt
+build: File.write('readme.txt', File.read('forced-timeout.js').match(%r{
+build:   # extract leading comment
+build:   ^/\*\*(.*?)\* /
+build:
+build:   # match text
+build:   (.*?)
+build:
+build:   # match closing comment
+build:   \* /
+build: }mx)[1].split(/\n/).map { |line|
+build:   # strip leading asterisks
+build:   line.gsub(/^ \* ?/, '')
+build: }.join("\n").strip)
+build:
+build: # generate readme.html
+build: `markdown < readme.txt > readme.html`
+build:
+build: # make forced-timeout.min.js
+build: `jsmin < forced-timeout.js > forced-timeout.min.js`
 */
