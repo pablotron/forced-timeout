@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- set session timeout to 5 minutes -->
+    <meta id='x-forced-timeout-time' value='1'/>
+    <meta id='x-forced-timeout-debug' value='1'/>
+
+    <!-- additional forced timeout examples -->
+    <!-- 
+      <meta id='x-forced-timeout-text' value='Later, Skater!'/>
+      <meta id='x-forced-timeout-events' value='mousemove keyup'/>
+      <meta id='x-forced-timeout-debug' value='1'/>
+    -->
+
+    <!-- load forced-timeout.js -->
+    <script type='text/javascript' src='forced-timeout.js'></script>
+
+    <!-- example of catching a forced-timeout event -->
+    <script type='text/javascript'>
+      function bye() {
+        alert('bye!');
+      }
+
+      if (document.addEventListener) {
+        // modern browsers, ie9+
+        document.addEventListener('forcedtimeout', bye, false);
+      } else {
+        // ie8 and earlier
+        document.onforcedtimeout = bye;
+      }
+    </script>
+
+    <title>
+      forced-timeout.js Test Page
+    </title>
+
+    <style type='text/css'>
+      body {
+        background-color: white;
+        font-family: helvetica, arial, verdana, sans-serif;
+        padding: 10px 0 0 20px;
+        font-size: 12pt;
+      }
+
+      h1 {
+        font-size: 14pt;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>
+      forced-timeout.js Test Page
+    </h1>
+
+    <p>
+      This is a test page.  
+    </p>
+      
+    <p>
+      If you let this page idle for one minute it should be
+      automatically cleared.
+    </p>
+  </body>
+</html>
